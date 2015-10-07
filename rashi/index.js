@@ -4,6 +4,7 @@ import './style.css!css'
 
 import {domReady} from 'helpers/domReady'
 import {Snap} from 'snap.svg'
+import {Actor, Tween} from 'Popmotion/popmotion'
 
 domReady(() => {
     var snapC = Snap("#svgC");
@@ -53,7 +54,9 @@ domReady(() => {
 
     ]
 
-    Array.forEach([1,2,3,4,5,6,7,8,9,10,11,12], (house) => {
+    var houses = [1,2,3,4,5,6,7,8,9,10,11,12]
+
+    Array.forEach(houses, (house) => {
 
         snapC.path(pathData[house-1]).attr(pathAttrs(`house${house}`))
 
@@ -72,6 +75,19 @@ domReady(() => {
         t.setAttribute("font-size", "44");
         p.parentNode.insertBefore(t, p.nextSibling);
     }
+
+    Array.forEach(houses, (house) => {
+        let houseActor = new Actor(`path#house${house}`);
+        let fooTween = new Tween({
+            duration: 2000,
+            values: {
+                fill: '#000'
+            }
+        })
+
+        houseActor.start(fooTween);
+
+    })
 
 
 });
